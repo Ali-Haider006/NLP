@@ -22,14 +22,13 @@ count_vectorizer = CountVectorizer(min_df=7, max_df=20)
 document_term_matrix = count_vectorizer.fit_transform([chunk['text'] for chunk in chunks])
 
 # Extract the vocabulary and display it
-vocabulary = np.array(count_vectorizer.get_feature_names())
+vocabulary = np.array(count_vectorizer.get_feature_names_out())
 print("\nVocabulary:\n", vocabulary)
 
 # Generate names for chunks
 chunk_names = []
 for i in range(len(text_chunks)):
     chunk_names.append('Chunk-' + str(i+1))
-
 # Print the document term matrix
 print("\nDocument term matrix:")
 formatted_text = '{:>12}' * (len(chunk_names) + 1)
@@ -39,3 +38,4 @@ for word, item in zip(vocabulary, document_term_matrix.T):
     output = [word] + [str(freq) for freq in item.data]
     print(formatted_text.format(*output))
 
+# print(len(chunk_names))
